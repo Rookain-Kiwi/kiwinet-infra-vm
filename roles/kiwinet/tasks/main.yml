@@ -16,7 +16,7 @@
 
 - name: Clone du repo kiwinet-services (Traefik, Plex, Minecraft, HA)
   ansible.builtin.git:
-    repo: git@github.com:Rookain-Kiwi/kiwinet-services.git
+    repo: https://github.com/Rookain-Kiwi/kiwinet-services.git
     dest: /opt/kiwinet-services
     version: main
     accept_hostkey: true
@@ -24,7 +24,7 @@
 
 - name: Clone du repo kiwinet-observability (Prometheus, Grafana, Uptime Kuma)
   ansible.builtin.git:
-    repo: git@github.com:Rookain-Kiwi/kiwinet-observability.git
+    repo: https://github.com/Rookain-Kiwi/kiwinet-observability.git
     dest: /opt/kiwinet-observability
     version: main
     accept_hostkey: true
