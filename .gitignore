@@ -1,0 +1,22 @@
+# ─────────────────────────────────────────────
+# .gitignore — kiwinet-infra-vm
+# ─────────────────────────────────────────────
+ 
+# Clé CI/CD (copiée manuellement dans roles/ssh/files/)
+# kiwinet.pub n'est pas ici : elle est injectée par Freebox OS à la création de la VM
+roles/ssh/files/kiwinet_deploy.pub
+ 
+# Fichiers de variables sensibles
+*.vault
+group_vars/all/vault.yml
+host_vars/*/vault.yml
+ 
+# Fichiers de retry Ansible
+*.retry
+ 
+# Cache Python
+__pycache__/
+*.pyc
+ 
+# Logs
+*.log
