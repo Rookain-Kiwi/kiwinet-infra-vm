@@ -16,6 +16,13 @@
 #   - acme.json présent et chmod 600 dans traefik/
 # ─────────────────────────────────────────────
 
+# ── Reset connexion SSH ───────────────────────
+# Nécessaire pour que l'appartenance au groupe docker (ajoutée par le rôle docker)
+# soit prise en compte sans déconnexion manuelle.
+
+- name: "Reset de la connexion SSH pour appliquer le groupe docker"
+  meta: reset_connection
+
 # ── Répertoires /opt ──────────────────────────
 
 - name: "Création des répertoires de base /opt/kiwinet-*"
