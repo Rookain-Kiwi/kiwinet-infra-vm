@@ -6,8 +6,9 @@
 #   - Ajout de la clé kiwinet_deploy (CI/CD GitHub Actions)
 #   - Désactivation de l'authentification par mot de passe
 #   - Désactivation du login root direct
+#   - Configuration du port SSH (variable ssh_port, défaut 22)
 #
-# Note : la clé kiwinet (accès manuel) est injectée par Freebox OS
+# Note : la clé kiwinet (accès manuel Freebox) est injectée par Freebox OS
 # via cloud-init à la création de la VM — elle n'est pas gérée ici.
 # ─────────────────────────────────────────────
 
@@ -53,5 +54,17 @@
     path: /etc/ssh/sshd_config
     regexp: "^#?ChallengeResponseAuthentication"
     line: "ChallengeResponseAuthentication no"
+    state: present
+  notify: Redémarrage sshd
+
+# ── Port SSH ──────────────────────────────────
+# ssh_port défini dans le playbook appelant (défaut 22 si non spécifié)
+# Sur le cloud : ssh_port=2222 (défini dans playbook-cloud.yml)
+
+- name: Configuration du port SSH
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?Port "
+    line: "Port {{ ssh_port | default(22) }}"
     state: present
   notify: Redémarrage sshd
