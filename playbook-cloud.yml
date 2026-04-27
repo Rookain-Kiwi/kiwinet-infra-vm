@@ -1,10 +1,10 @@
 # playbook-cloud.yml
 # Playbook VPS Scaleway — provisioning site kiwinet-web (x86_64)
 # Cible : groupe [cloud] (inventory.ini)
-# Ordre d'exécution : base → user → ssh → ufw → docker → kiwinet-web
+# Ordre d'exécution : base → user → ssh → ufw → docker → kiwinet-web → kiwinet-vps
 # Prérequis : accès SSH root avec clé kiwinet_deploy (cloud-init Scaleway)
 
-- name: Provisioning VPS Scaleway (kiwinet-web)
+- name: Provisioning VPS Scaleway (kiwinet-web + Traefik)
   hosts: cloud
   gather_facts: true
 
@@ -28,3 +28,4 @@
     - ufw
     - docker
     - kiwinet-web
+    - kiwinet-vps
