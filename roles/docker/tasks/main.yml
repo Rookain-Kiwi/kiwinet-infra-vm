@@ -52,3 +52,14 @@
     name: docker
     state: started
     enabled: true
+
+- name: Configuration DNS Docker (daemon.json)
+  ansible.builtin.copy:
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '0644'
+    content: |
+      {
+        "dns": ["1.1.1.1", "9.9.9.9", "192.168.1.254"]
+      }
