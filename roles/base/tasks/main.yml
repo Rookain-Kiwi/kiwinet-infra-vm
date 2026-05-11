@@ -66,3 +66,26 @@
 - name: "Configuration du fuseau horaire Europe/Paris"
   community.general.timezone:
     name: Europe/Paris
+
+# ── DNS système ──────────────────────────────
+
+- name: "Création du répertoire resolved.conf.d"
+  ansible.builtin.file:
+    path: /etc/systemd/resolved.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: "Configuration des DNS publics en fallback (systemd-resolved)"
+  ansible.builtin.copy:
+    dest: /etc/systemd/resolved.conf.d/dns-upstream.conf
+    owner: root
+    group: root
+    mode: '0644'
+    content: |
+      [Resolve]
+      DNS=1.1.1.1 9.9.9.9
+      FallbackDNS=1.0.0.1 149.112.112.112
+      Cache=yes
+  notify: Restart systemd-resolved
