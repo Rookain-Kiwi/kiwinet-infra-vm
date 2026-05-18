@@ -30,7 +30,7 @@
     group: rookain
     mode: "0755"
   loop:
-    - /mnt/Kodi
+    - /mnt/Libraries
     - /mnt/SeedBox
     - /mnt/VMs
     - /mnt/Data
@@ -45,7 +45,7 @@
     opts: "guest,uid=rookain,gid=rookain,vers=3.0,cache=strict,serverino,_netdev,x-systemd.automount,x-systemd.device-timeout=30"
     state: mounted
   loop:
-    - { path: /mnt/Kodi,    src: "//mafreebox.freebox.fr/Kodi" }
+    - { path: /mnt/Libraries, src: "//mafreebox.freebox.fr/Libraries" }
     - { path: /mnt/SeedBox, src: "//mafreebox.freebox.fr/SeedBox" }
     - { path: /mnt/VMs,     src: "//mafreebox.freebox.fr/VMs" }
     - { path: /mnt/Data,    src: "//mafreebox.freebox.fr/Data" }
