@@ -28,11 +28,11 @@ kiwinet-infra-ansible/
 ├── playbook-freebox.yml         # Provisioning VM Freebox Delta (ARM64)
 ├── playbook-cloud.yml           # Provisioning VPS Scaleway (x86_64)
 ├── roles/
-│   ├── base/                    # Packages système, locale, timezone
+│   ├── base/                    # Packages système, locale, timezone, DNS système (systemd-resolved)
 │   ├── user/                    # Création utilisateur rookain (cloud uniquement)
 │   ├── ssh/                     # Hardening sshd_config, clés autorisées, port SSH
 │   ├── ufw/                     # Firewall — règles paramétrables par playbook
-│   ├── docker/                  # Docker CE (ARM64 ou AMD64) + plugin Compose v2
+│   ├── docker/                  # Docker CE (ARM64 ou AMD64) + plugin Compose v2 + daemon.json DNS
 │   ├── storage/                 # Montages CIFS NAS Freebox (freebox uniquement)
 │   ├── kiwinet/                 # Répertoires /opt, clone repos, démarrage stacks
 │   └── kiwinet-web/             # Déploiement container kiwinet-web (cloud uniquement)

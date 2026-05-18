@@ -194,3 +194,23 @@ uname -m
 2. Créer et provisionner la VM test (2 CPU, RAM disponible)
 3. Valider le playbook sur la VM test
 4. Éteindre la VM test, rallumer la VM prod
+
+### Faux positifs DNS dans Uptime Kuma
+
+**Symptôme :** Uptime Kuma déclare des services down (erreur `ENOTFOUND`) alors qu'ils
+sont accessibles par IP.
+
+**Cause :** Le resolver DNS de la Freebox (`192.168.1.254`) est instable par intermittence.
+Les containers Docker héritent de ce resolver seul au démarrage et n'ont aucun fallback.
+
+**Correction Ansible (déjà appliquée) :**
+
+- Rôle `base` : déploie `/etc/systemd/resolved.conf.d/dns-upstream.conf`
+  — fallback `1.1.1.1` / `9.9.9.9` au niveau système (VM)
+- Rôle `docker` : déploie `/etc/docker/daemon.json`
+  — fallback `1.1.1.1` / `9.9.9.9` pour tous les containers Docker
+
+**Correction manuelle Uptime Kuma (hors Ansible) :**
+
+- Directive `dns:` ajoutée dans `kiwinet-observability/uptime/docker-compose.yml`
+- Monitors : Essais = 2, Timeout = 10s, méthode GET (Home Assistant rejette HEAD avec 405)
